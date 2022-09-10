@@ -88,54 +88,8 @@ public:
         cout << "size of quad = " << quad.get_size() << " - size of backing array = " << quad._elems.size() << endl;
 
         cout << "num names = " << nameList.size() << endl;
-        // */
-       /*
-        for (size_t i = 0; i < nameList.size(); i++)
-        {
-            if (quad.contains(nameList[i]) == false)
-            {
-                cout << nameList[i] << endl;
-            }
-
-        }
-        */
-     
-        //cout << quad.contains("Portland") << endl;
-
-        //quad.insert("Portland");
-        //cout << quad.contains("Portland");
-
-        /*
-        for (size_t i = 0; i < linear._elems.size(); i++)
-        {
-            if (linear._elems[i]._data == "Portland")
-            {
-                cout << "found it" << endl;
-            }
-        }
-        */
-        /*
-        for (size_t i = 0; i < nameList.size(); i++)
-        {
-
-            auto start_linear = high_resolution_clock::now();
-            quad.insert(nameList[i]);
-            auto stop_linear = high_resolution_clock::now();
-            duration<double, std::micro> single_time_linear = stop_linear - start_linear;
-        }
-        */
-
-        for (size_t i = 0; i < nameList.size(); i++)
-        {
-            if (quad.contains(nameList[i]) == false)
-            {
-                cout << "could not find name" << endl;
-            }
-        }
-        cout << "Finished" << endl;
+       
     }
-   // "Portland"
-
 };
 
 int main()

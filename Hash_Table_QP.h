@@ -23,13 +23,12 @@ public:
 protected: // protected
 	virtual float _get_biggest_allowed_max_load_factor() const
 	{
-		float x = 0.49;
-		return x;
+		return 0.49f;
 	}
 
 	static int nextPerfectSquare(int N)
 	{
-		int nextN = floor(sqrt(N)) + 1;
+		int nextN = (int)floor(sqrt(N)) + 1;
 
 		return (nextN * nextN);
 	}
@@ -45,9 +44,8 @@ protected: // protected
 		int firstSqAway = 0;
 		size_t index = Hash_Table_LP<T>::_get_hash_modulus(item); // start at hash value
 		int hashVal = index;
-		//size_t maxLoops = 0; // stops infinite loops
 
-		while (1 == 1)
+		while (true)
 		{
 			if (index > Hash_Table_LP<T>::_elems.size() - 1) // loop around array
 			{
@@ -60,14 +58,16 @@ protected: // protected
 				return index;
 			}
 
-			// else check next perfect sq away
-			index = hashVal;
+			index = hashVal; // reset to hash index
+
+			// increment to next perfect sq
 			index = index + this->nextPerfectSquare(firstSqAway);
 			firstSqAway = this->nextPerfectSquare(firstSqAway);
 		}
-		cout << "FAILED" << endl;
+
 		return string::npos;
 	}
+
 	virtual void _grow_capacity()
 	{
 		// double the size of the backing vector
