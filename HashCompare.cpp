@@ -53,9 +53,10 @@ public:
         // get vector of names
         nameList = getNames();
 
+        cout << "Name list size: " << nameList.size() << endl;
         double total_time_linear = 0;
         double total_time_quad = 0;
-          /*
+         // /*
         for (size_t i = 0; i < nameList.size(); i++)
         {
 
@@ -87,7 +88,7 @@ public:
         cout << "size of quad = " << quad.get_size() << " - size of backing array = " << quad._elems.size() << endl;
 
         cout << "num names = " << nameList.size() << endl;
-         */
+        // */
        /*
         for (size_t i = 0; i < nameList.size(); i++)
         {
@@ -113,14 +114,25 @@ public:
             }
         }
         */
+        /*
         for (size_t i = 0; i < nameList.size(); i++)
         {
 
             auto start_linear = high_resolution_clock::now();
-            linear.insert(nameList[i]);
+            quad.insert(nameList[i]);
             auto stop_linear = high_resolution_clock::now();
             duration<double, std::micro> single_time_linear = stop_linear - start_linear;
         }
+        */
+
+        for (size_t i = 0; i < nameList.size(); i++)
+        {
+            if (quad.contains(nameList[i]) == false)
+            {
+                cout << "could not find name" << endl;
+            }
+        }
+        cout << "Finished" << endl;
     }
    // "Portland"
 

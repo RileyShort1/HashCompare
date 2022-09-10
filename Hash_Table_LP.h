@@ -25,8 +25,9 @@ protected: // protected
 	float _max_load_factor;
 	size_t num_collisions = 0;
 
-	virtual size_t _get_hash_modulus(const T& items) const // uses Hash(item), ext.
+	virtual size_t _get_hash_modulus(const T& str) const // uses Hash(item), ext.
 	{
+		/*
 	  const int PRIME_CONST = 31;
 	  size_t hashCode = 0;
 	  for (size_t i = 0; i < items.length(); i++)
@@ -35,6 +36,12 @@ protected: // protected
 	  }
 	
 	  return hashCode % _elems.size();
+	  */
+
+		unsigned long hash = 5381;
+		for (size_t i = 0; i < str.size(); ++i)
+			hash = 33 * hash + (unsigned char)str[i];
+		return hash % _elems.size();
 	}
 	virtual void _rehash() 
 	{

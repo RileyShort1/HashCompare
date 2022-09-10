@@ -26,6 +26,14 @@ protected: // protected
 		float x = 0.49;
 		return x;
 	}
+
+	static int nextPerfectSquare(int N)
+	{
+		int nextN = floor(sqrt(N)) + 1;
+
+		return (nextN * nextN);
+	}
+
 	virtual size_t _find_pos(const T& item) const
 	{
 		// fail if backing array is full
@@ -34,30 +42,28 @@ protected: // protected
 			return string::npos;
 		}
 
-		size_t i = Hash_Table_LP<T>::_get_hash_modulus(item); // index
-		size_t oddNum = 1;
+		int firstSqAway = 0;
+		size_t index = Hash_Table_LP<T>::_get_hash_modulus(item); // start at hash value
+		int hashVal = index;
+		//size_t maxLoops = 0; // stops infinite loops
 
 		while (1 == 1)
 		{
-			if (i > Hash_Table_LP<T>::_elems.size() - 1) // reset to begining of array
+			if (index > Hash_Table_LP<T>::_elems.size() - 1) // loop around array
 			{
-				i = i - Hash_Table_LP<T>::_elems.size();
-				//maxLoops++;
+				index = index - Hash_Table_LP<T>::_elems.size();
 			}
 
-			// scan is terminated by VACANT cells
-			if (Hash_Table_LP<T>::_elems[i]._state == Hash_Table_LP<T>::Entry::STATE::VACANT)
+			if (Hash_Table_LP<T>::_elems[index]._state == Hash_Table_LP<T>::Entry::STATE::VACANT
+				|| Hash_Table_LP<T>::_elems[index]._data == item)
 			{
-				return i;
+				return index;
 			}
 
-			if (Hash_Table_LP<T>::_elems[i]._data == item)
-			{
-				return i;
-			}
-
-			i += oddNum;
-			oddNum += 2;
+			// else check next perfect sq away
+			index = hashVal;
+			index = index + this->nextPerfectSquare(firstSqAway);
+			firstSqAway = this->nextPerfectSquare(firstSqAway);
 		}
 		cout << "FAILED" << endl;
 		return string::npos;
