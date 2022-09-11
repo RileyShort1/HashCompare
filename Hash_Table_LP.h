@@ -23,21 +23,12 @@ protected: // protected
 	size_t _size; // Does not count deleted items
 	size_t _num_non_vacant_cells; // does
 	float _max_load_factor;
-	size_t num_collisions = 0;
+
+	// tracking vars for testing
+	int num_rehash = 0;
 
 	virtual size_t _get_hash_modulus(const T& str) const // uses Hash(item), ext.
 	{
-		/*
-	  const int PRIME_CONST = 31;
-	  size_t hashCode = 0;
-	  for (size_t i = 0; i < items.length(); i++)
-	  {
-		  hashCode += items[i] * pow(PRIME_CONST, i);
-	  }
-	
-	  return hashCode % _elems.size();
-	  */
-
 		unsigned long hash = 5381;
 		for (size_t i = 0; i < str.size(); ++i)
 			hash = 33 * hash + (unsigned char)str[i];
@@ -45,6 +36,7 @@ protected: // protected
 	}
 	virtual void _rehash() 
 	{
+		num_rehash++;
 		vector<T> myCopy;
 		size_t numNonVacant = 0;
 		size_t sze = 0;
@@ -155,7 +147,7 @@ public:
 	}
 	size_t get_size() const { return _size; }
 	bool is_empty() const { return _size == 0; }
-	bool contains(const T& item) const 
+	bool contains(const T& item)  
 	{
 		size_t pos = _find_pos(item);
 
@@ -196,12 +188,6 @@ public:
 	{
 		// insert here
 		size_t pos = _find_pos(item);
-
-		// check for collision
-		if (_elems[_get_hash_modulus(item)]._state == Entry::STATE::ACTIVE)
-		{
-			num_collisions++;
-		}
 
 		if (pos == string::npos)
 		{
