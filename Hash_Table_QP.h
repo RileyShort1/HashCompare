@@ -98,7 +98,8 @@ protected: // protected
 		return 2;
 	}
 
-	static bool _is_prime(size_t n) // custom helper
+	// custom helper
+	static bool _is_prime(size_t n) 
 	{
 		if (n < 2)
 		{

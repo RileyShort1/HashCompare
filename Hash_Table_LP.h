@@ -27,8 +27,9 @@ protected: // protected
 	// tracking vars for testing
 	int num_rehash = 0;
 
-	virtual size_t _get_hash_modulus(const T& str) const // uses Hash(item), ext.
+	virtual size_t _get_hash_modulus(const T& str) const 
 	{
+		// djb2 hash function
 		unsigned long hash = 5381;
 		for (size_t i = 0; i < str.size(); ++i)
 			hash = 33 * hash + (unsigned char)str[i];
@@ -133,7 +134,7 @@ public:
 	Hash_Table_LP(size_t n = DEFAULT_INIT_CAPACITY)
 	{
 		set_max_load_factor(_get_biggest_allowed_max_load_factor());
-		//_max_load_factor = 0.75;
+
 		if (n == 0)
 		{
 			_elems.resize(DEFAULT_INIT_CAPACITY, Entry());
@@ -143,11 +144,10 @@ public:
 		}
 		_num_non_vacant_cells = 0;
 		_size = 0;
-
 	}
 	size_t get_size() const { return _size; }
 	bool is_empty() const { return _size == 0; }
-	bool contains(const T& item)  
+	bool contains(const T& item) const 
 	{
 		size_t pos = _find_pos(item);
 
