@@ -90,7 +90,7 @@ protected: // protected
 	}
 	virtual float _get_biggest_allowed_max_load_factor() const 
 	{
-		return 0.75;
+		return 0.75f;
 	}
 	virtual size_t _find_pos(const T& item) const 
 	{
