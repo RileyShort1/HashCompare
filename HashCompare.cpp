@@ -34,6 +34,8 @@ public:
             }
         }
 
+        names.close();
+
         // remove duplicates
         sort(nameList.begin(), nameList.end());
         nameList.erase(unique(nameList.begin(), nameList.end()), nameList.end());
