@@ -10,7 +10,7 @@
 #include <cmath>
 #include <sstream>
 
-using namespace std;
+//using namespace std;
 
 template <typename T>
 class Hash_Table_QP : public Hash_Table_LP<T> {
@@ -38,7 +38,7 @@ protected: // protected
 		// fail if backing array is full
 		if (Hash_Table_LP<T>::_num_non_vacant_cells == Hash_Table_LP<T>::_elems.size() || Hash_Table_LP<T>::_elems.size() == 0)
 		{
-			return string::npos;
+			return std::string::npos;
 		}
 
 		int firstSqAway = 0;
@@ -65,7 +65,7 @@ protected: // protected
 			firstSqAway = this->nextPerfectSquare(firstSqAway);
 		}
 
-		return string::npos;
+		return std::string::npos;
 	}
 
 	virtual void _grow_capacity()

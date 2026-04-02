@@ -6,7 +6,7 @@
 #include <iostream>
 #include <vector>
 #include <ctgmath>
-using namespace std;
+//using namespace std;
 
 template <typename T>
 class Hash_Table_LP {
@@ -19,7 +19,7 @@ protected: // protected
 	};
 
 	static const size_t DEFAULT_INIT_CAPACITY = 3; // first odd prime (Do not change)
-	vector<Entry> _elems; // table
+	std::vector<Entry> _elems; // table
 	size_t _size; // Does not count deleted items
 	size_t _num_non_vacant_cells; // does
 	float _max_load_factor;
@@ -29,7 +29,6 @@ protected: // protected
 
 	virtual size_t _get_hash_modulus(const T& str) const 
 	{
-		// djb2 hash function
 		unsigned long hash = 5381;
 		for (size_t i = 0; i < str.size(); ++i)
 			hash = 33 * hash + (unsigned char)str[i];
@@ -38,7 +37,7 @@ protected: // protected
 	virtual void _rehash() 
 	{
 		num_rehash++;
-		vector<T> myCopy;
+		std::vector<T> myCopy;
 		size_t numNonVacant = 0;
 		size_t sze = 0;
 		size_t size = _elems.size() * 2;
@@ -97,7 +96,7 @@ protected: // protected
 		// fail if backing array is full
 		if (_num_non_vacant_cells == _elems.size() || _elems.size() == 0)
 		{
-			return string::npos;
+			return std::string::npos;
 		}
 
 		// scan array linearly (begining at position from hash) 
@@ -120,7 +119,7 @@ protected: // protected
 			}
 		}
 		
-		return string::npos;
+		return std::string::npos;
 	}
 	virtual void _grow_capacity() 
 	{
@@ -146,12 +145,23 @@ public:
 		_size = 0;
 	}
 	size_t get_size() const { return _size; }
+	int get_num_rehash() { return num_rehash; }
 	bool is_empty() const { return _size == 0; }
+
+	std::vector<double> getBooleanMap() {
+		std::vector<double> map(_elems.size());
+
+		for (int i = 0; i < _elems.size(); i++) {
+			map[i] = _elems[i]._state == Entry::STATE::ACTIVE ? 1.0 : 0.0;
+		}
+
+		return map;
+	}
 	bool contains(const T& item) const 
 	{
 		size_t pos = _find_pos(item);
 
-		if (pos == string::npos)
+		if (pos == std::string::npos)
 		{
 			return false;
 		}
@@ -166,7 +176,7 @@ public:
 	{
 		size_t pos = _find_pos(item);
 
-		if (pos == string::npos)
+		if (pos == std::string::npos)
 		{
 			throw Not_found_exception();
 		}
@@ -189,7 +199,7 @@ public:
 		// insert here
 		size_t pos = _find_pos(item);
 
-		if (pos == string::npos)
+		if (pos == std::string::npos)
 		{
 			return false;
 		}
@@ -226,7 +236,7 @@ public:
 	{
 		size_t pos = _find_pos(item);
 
-		if (pos == string::npos)
+		if (pos == std::string::npos)
 		{
 			return false;
 		}
@@ -241,11 +251,11 @@ public:
 		return true;
 	}
 
-	class Table_full_exception : public exception {
-	public: const string to_string() const throw() { return string("Table full exception"); }
+	class Table_full_exception : public std::exception {
+	public: const std::string to_string() const throw() { return std::string("Table full exception"); }
 	};
-	class Not_found_exception : public exception {
-	public: const string to_string() const throw() { return string("Not found exception"); }
+	class Not_found_exception : public std::exception {
+	public: const std::string to_string() const throw() { return std::string("Not found exception"); }
 	};
 
 	friend class Tests;
